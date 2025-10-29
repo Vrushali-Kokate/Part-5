@@ -25,12 +25,10 @@ blogsRouter.post('/', userExtractor, async (request, response) => {
     likes: body.likes || 0,
     user: user._id
   })
+const savedBlog = await blog.save()
+const populatedBlog = await savedBlog.populate('user', { username: 1, name: 1 })
+response.status(201).json(populatedBlog)
 
-  const savedBlog = await blog.save()
-  user.blogs = user.blogs.concat(savedBlog._id)
-  await user.save()
-
-  response.status(201).json(savedBlog)
 })
 
 // DELETE a blog (only creator can delete)
@@ -52,19 +50,16 @@ blogsRouter.delete('/:id', userExtractor, async (request, response) => {
 
 // PUT (optional: update likes)
 blogsRouter.put('/:id', async (request, response) => {
-  const { title, author, url, likes } = request.body
+  const body = request.body
 
   const updatedBlog = await Blog.findByIdAndUpdate(
     request.params.id,
-    { title, author, url, likes },
+    body,
     { new: true, runValidators: true, context: 'query' }
-  )
+  ).populate('user', { username: 1, name: 1 }) // ✅ key fix!
 
-  if (updatedBlog) {
-    response.json(updatedBlog)
-  } else {
-    response.status(404).json({ error: 'blog not found' })
-  }
+  response.json(updatedBlog)
 })
+
 
 module.exports = blogsRouter
