@@ -23,7 +23,7 @@ app.use(express.json())
 // app.use(middleware.tokenExtractor) // register tokenExtractor here ✅
 
 // Use userExtractor ONLY for /api/blogs
-app.use('/api/blogs', middleware.userExtractor, blogsRouter)
+app.use('/api/blogs',  blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 

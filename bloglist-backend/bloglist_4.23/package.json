@@ -14,11 +14,10 @@
     "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.6.1",
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.8.0",
-    "mongoose-unique-validator": "^4.0.1"
+    "mongoose": "^8.8.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
