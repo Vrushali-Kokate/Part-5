@@ -11,6 +11,14 @@ const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 require('dotenv').config()
 
+if (process.env.NODE_ENV === 'test') {
+  const testingRouter = require('./controllers/testing')
+  app.use('/api/testing', testingRouter)
+}
+
+
+
+
 mongoose.set('strictQuery', false)
 logger.info('Connecting to', process.env.MONGODB_URI)
 
